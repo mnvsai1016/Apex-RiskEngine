@@ -13,7 +13,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.models import (
-    StudentRecord, StudentRiskProfile, AppointmentBookingRequest
+    StudentRecord, StudentRiskProfile, AppointmentBookingRequest,
+    CreateTeacherRequest, CreateSlotRequest
 )
 from app.risk_engine import build_student_risk_profiles, analyze_student_risk, ATTENDANCE_THRESHOLD
 from app.timetable_engine import timetable_store
@@ -185,6 +186,29 @@ async def reset_demo_data():
 @app.get("/api/timetables")
 async def get_timetables():
     return [t.model_dump() for t in timetable_store.get_all_timetables()]
+
+@app.post("/api/teachers")
+async def add_teacher(req: CreateTeacherRequest):
+    teacher = timetable_store.add_teacher(req)
+    return {
+        "success": True,
+        "message": f"Faculty member {teacher.teacher_name} added successfully.",
+        "teacher": teacher.model_dump()
+    }
+
+@app.delete("/api/teachers/{teacher_id}")
+async def delete_teacher(teacher_id: str):
+    success = timetable_store.delete_teacher(teacher_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Teacher not found.")
+    return {"success": True, "message": "Teacher removed successfully."}
+
+@app.post("/api/teachers/{teacher_id}/slots")
+async def add_slot(teacher_id: str, slot: CreateSlotRequest):
+    new_slot = timetable_store.add_slot_to_teacher(teacher_id, slot)
+    if not new_slot:
+        raise HTTPException(status_code=404, detail="Teacher not found.")
+    return {"success": True, "slot": new_slot.model_dump()}
 
 @app.post("/api/book-appointment")
 async def book_appointment(req: AppointmentBookingRequest):

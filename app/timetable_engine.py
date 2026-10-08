@@ -3,7 +3,7 @@ Teacher Timetable and Student Appointment Booking Engine.
 Allows at-risk students to discover teacher office hours and reserve counseling slots.
 """
 from typing import List, Optional, Dict, Any
-from app.models import TeacherTimetable, TimeSlot, AppointmentBookingRequest
+from app.models import TeacherTimetable, TimeSlot, AppointmentBookingRequest, CreateTeacherRequest, CreateSlotRequest
 
 INITIAL_TEACHERS: List[TeacherTimetable] = [
     TeacherTimetable(
@@ -95,6 +95,56 @@ class TimetableStore:
             if t.teacher_id == teacher_id:
                 return t
         return None
+
+    def add_teacher(self, req: "CreateTeacherRequest") -> TeacherTimetable:
+        new_id = f"TCH-{len(self.timetables)+1:03d}"
+        slots: List[TimeSlot] = []
+        if req.slots and len(req.slots) > 0:
+            for idx, s in enumerate(req.slots):
+                slots.append(TimeSlot(
+                    slot_id=f"SLT-{len(self.timetables)+1}{idx+1:02d}",
+                    day=s.day,
+                    start_time=s.start_time,
+                    end_time=s.end_time,
+                    status=s.status
+                ))
+        else:
+            slots = [
+                TimeSlot(slot_id=f"SLT-{len(self.timetables)+1}01", day="Monday", start_time="10:00 AM", end_time="11:00 AM", status="FREE"),
+                TimeSlot(slot_id=f"SLT-{len(self.timetables)+1}02", day="Wednesday", start_time="02:00 PM", end_time="03:00 PM", status="FREE"),
+                TimeSlot(slot_id=f"SLT-{len(self.timetables)+1}03", day="Friday", start_time="11:30 AM", end_time="12:30 PM", status="FREE")
+            ]
+        new_teacher = TeacherTimetable(
+            teacher_id=new_id,
+            teacher_name=req.teacher_name,
+            department=req.department,
+            subject=req.subject,
+            email=req.email,
+            office_room=req.office_room,
+            slots=slots
+        )
+        self.timetables.append(new_teacher)
+        return new_teacher
+
+    def delete_teacher(self, teacher_id: str) -> bool:
+        initial_len = len(self.timetables)
+        self.timetables = [t for t in self.timetables if t.teacher_id != teacher_id]
+        return len(self.timetables) < initial_len
+
+    def add_slot_to_teacher(self, teacher_id: str, slot_req: "CreateSlotRequest") -> Optional[TimeSlot]:
+        teacher = self.get_teacher_by_id(teacher_id)
+        if not teacher:
+            return None
+        new_slot_id = f"SLT-{teacher_id.split('-')[-1]}{len(teacher.slots)+1:02d}"
+        new_slot = TimeSlot(
+            slot_id=new_slot_id,
+            day=slot_req.day,
+            start_time=slot_req.start_time,
+            end_time=slot_req.end_time,
+            status=slot_req.status
+        )
+        teacher.slots.append(new_slot)
+        return new_slot
 
     def book_appointment(self, req: AppointmentBookingRequest) -> Dict[str, Any]:
         teacher = self.get_teacher_by_id(req.teacher_id)

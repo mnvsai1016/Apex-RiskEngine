@@ -57,6 +57,20 @@ class TeacherTimetable(BaseModel):
     office_room: str
     slots: List[TimeSlot]
 
+class CreateSlotRequest(BaseModel):
+    day: str
+    start_time: str
+    end_time: str
+    status: str = "FREE"
+
+class CreateTeacherRequest(BaseModel):
+    teacher_name: str
+    department: str
+    subject: str
+    email: str
+    office_room: str
+    slots: Optional[List[CreateSlotRequest]] = None
+
 class AppointmentBookingRequest(BaseModel):
     teacher_id: str
     slot_id: str

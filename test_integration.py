@@ -116,8 +116,38 @@ def run_all_tests():
     assert r_reset.status_code == 200
     print(f"[PASS] POST /api/reset-demo: Demo state reset successfully")
 
+    # 15. Create New Teacher Dynamically
+    r_add_tch = client.post("/api/teachers", json={
+        "teacher_name": "Dr. Alan Turing",
+        "department": "Computer Science & Engineering",
+        "subject": "Theory of Computation & AI",
+        "email": "alan.turing@apex.edu",
+        "office_room": "Block B, Room 204"
+    })
+    assert r_add_tch.status_code == 200
+    tch_data = r_add_tch.json()["teacher"]
+    assert tch_data["teacher_name"] == "Dr. Alan Turing"
+    assert len(tch_data["slots"]) >= 3
+    new_tch_id = tch_data["teacher_id"]
+    print(f"[PASS] POST /api/teachers: Added {tch_data['teacher_name']} ({new_tch_id}) with {len(tch_data['slots'])} slots")
+
+    # 16. Add Extra Slot to Teacher
+    r_add_slot = client.post(f"/api/teachers/{new_tch_id}/slots", json={
+        "day": "Thursday",
+        "start_time": "04:00 PM",
+        "end_time": "05:00 PM",
+        "status": "FREE"
+    })
+    assert r_add_slot.status_code == 200
+    print(f"[PASS] POST /api/teachers/{new_tch_id}/slots: Slot added ({r_add_slot.json()['slot']['slot_id']})")
+
+    # 17. Delete Teacher
+    r_del_tch = client.delete(f"/api/teachers/{new_tch_id}")
+    assert r_del_tch.status_code == 200
+    print(f"[PASS] DELETE /api/teachers/{new_tch_id}: Teacher deleted successfully")
+
     print("\n" + "="*70)
-    print("SUCCESS: ALL 14 TEST CASES & ENDPOINTS PASSED WITH 100% ACCURACY!")
+    print("SUCCESS: ALL 17 TEST CASES & ENDPOINTS PASSED WITH 100% ACCURACY!")
     print("="*70)
 
 if __name__ == "__main__":

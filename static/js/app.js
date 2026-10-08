@@ -358,3 +358,62 @@ function downloadSampleFiles() {
     switchTab('tab-upload');
     showToast("Quick Test Files", "Download sample CSVs in the file upload tab.");
 }
+
+// --- Faculty Management ---
+function openAddTeacherModal() {
+    document.getElementById('teacher-name-input').value = '';
+    document.getElementById('teacher-dept-input').value = '';
+    document.getElementById('teacher-subject-input').value = '';
+    document.getElementById('teacher-email-input').value = '';
+    document.getElementById('teacher-room-input').value = '';
+    document.getElementById('add-teacher-modal').classList.remove('hidden');
+}
+
+function closeAddTeacherModal() {
+    document.getElementById('add-teacher-modal').classList.add('hidden');
+}
+
+async function submitAddTeacher(e) {
+    e.preventDefault();
+    const payload = {
+        teacher_name: document.getElementById('teacher-name-input').value.trim(),
+        department: document.getElementById('teacher-dept-input').value.trim(),
+        subject: document.getElementById('teacher-subject-input').value.trim(),
+        email: document.getElementById('teacher-email-input').value.trim(),
+        office_room: document.getElementById('teacher-room-input').value.trim()
+    };
+
+    try {
+        const resp = await fetch('/api/teachers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json();
+        if (resp.ok && data.success) {
+            closeAddTeacherModal();
+            showToast("Faculty Added", `Successfully registered ${payload.teacher_name} with office hours.`);
+            setTimeout(() => window.location.reload(), 1200);
+        } else {
+            showToast("Failed to Add", data.detail || "Error saving faculty", true);
+        }
+    } catch (err) {
+        showToast("Server Error", "Could not connect to faculty service", true);
+    }
+}
+
+async function deleteTeacher(teacherId) {
+    if (!confirm("Are you sure you want to remove this faculty member?")) return;
+    try {
+        const resp = await fetch(`/api/teachers/${teacherId}`, { method: 'DELETE' });
+        const data = await resp.json();
+        if (resp.ok && data.success) {
+            showToast("Faculty Removed", "Faculty member removed from timetable.");
+            setTimeout(() => window.location.reload(), 1000);
+        } else {
+            showToast("Error", data.detail || "Could not delete faculty", true);
+        }
+    } catch (err) {
+        showToast("Error", "Request failed", true);
+    }
+}
