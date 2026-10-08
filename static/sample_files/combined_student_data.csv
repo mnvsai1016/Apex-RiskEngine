@@ -1,0 +1,11 @@
+id,name,roll_number,email,phone,department,semester,advisor_name,advisor_email,subject,classes_attended,total_classes,test1_marks,test2_marks,assignment_marks
+STU-001,Aarav Sharma,2024-CS-014,aarav.sharma@student.apex.edu,+1 (555) 234-5678,Computer Science,4,Dr. Aris Thorne,aris.thorne@apex.edu,Data Structures & Algorithms,24,36,74.0,52.0,60.0
+STU-002,Rohan Verma,2024-CS-029,rohan.verma@student.apex.edu,+1 (555) 345-6789,Computer Science,4,Prof. Sarah Jenkins,sarah.jenkins@apex.edu,Operating Systems,28,35,82.0,78.0,80.0
+STU-003,Ananya Iyer,2024-EC-008,ananya.iyer@student.apex.edu,+1 (555) 456-7890,Electronics & Communication,4,Dr. Vikram Patel,vikram.patel@apex.edu,Digital Signal Processing,34,40,91.0,89.0,92.0
+STU-004,Vikramaditya Rao,2024-IT-019,vikram.rao@student.apex.edu,+1 (555) 567-8901,Information Technology,4,Prof. Meera Nair,meera.nair@apex.edu,Database Management Systems,22,32,65.0,44.0,50.0
+STU-005,Priya Sengupta,2024-CS-041,priya.sengupta@student.apex.edu,+1 (555) 678-9012,Computer Science,4,Dr. Aris Thorne,aris.thorne@apex.edu,Data Structures & Algorithms,38,40,94.0,96.0,98.0
+STU-006,Karan Malhotra,2024-EC-022,karan.malhotra@student.apex.edu,+1 (555) 789-0123,Electronics & Communication,4,Dr. Vikram Patel,vikram.patel@apex.edu,Digital Signal Processing,25,34,55.0,42.0,58.0
+STU-007,Sneha Kulkarni,2024-AI-005,sneha.kulkarni@student.apex.edu,+1 (555) 890-1234,Artificial Intelligence & ML,4,Dr. Rajesh Kumar,rajesh.kumar@apex.edu,Engineering Mathematics III,29,35,70.0,68.0,75.0
+STU-008,Devansh Chawla,2024-AI-018,devansh.chawla@student.apex.edu,+1 (555) 901-2345,Artificial Intelligence & ML,4,Dr. Rajesh Kumar,rajesh.kumar@apex.edu,Engineering Mathematics III,19,30,48.0,35.0,40.0
+STU-009,Divya Reddy,2024-IT-031,divya.reddy@student.apex.edu,+1 (555) 012-3456,Information Technology,4,Prof. Meera Nair,meera.nair@apex.edu,Database Management Systems,30,36,88.0,86.0,90.0
+STU-010,Manish Gupta,2024-CS-055,manish.gupta@student.apex.edu,+1 (555) 123-9876,Computer Science,4,Prof. Sarah Jenkins,sarah.jenkins@apex.edu,Operating Systems,36,38,89.0,91.0,92.0

@@ -1,0 +1,11 @@
+roll_number,name,department,subject,classes_attended,total_classes,advisor_name,advisor_email,phone,email
+2024-CS-014,Aarav Sharma,Computer Science,Data Structures & Algorithms,24,36,Dr. Aris Thorne,aris.thorne@apex.edu,+1 (555) 234-5678,aarav.sharma@student.apex.edu
+2024-CS-029,Rohan Verma,Computer Science,Operating Systems,28,35,Prof. Sarah Jenkins,sarah.jenkins@apex.edu,+1 (555) 345-6789,rohan.verma@student.apex.edu
+2024-EC-008,Ananya Iyer,Electronics & Communication,Digital Signal Processing,34,40,Dr. Vikram Patel,vikram.patel@apex.edu,+1 (555) 456-7890,ananya.iyer@student.apex.edu
+2024-IT-019,Vikramaditya Rao,Information Technology,Database Management Systems,22,32,Prof. Meera Nair,meera.nair@apex.edu,+1 (555) 567-8901,vikram.rao@student.apex.edu
+2024-CS-041,Priya Sengupta,Computer Science,Data Structures & Algorithms,38,40,Dr. Aris Thorne,aris.thorne@apex.edu,+1 (555) 678-9012,priya.sengupta@student.apex.edu
+2024-EC-022,Karan Malhotra,Electronics & Communication,Digital Signal Processing,25,34,Dr. Vikram Patel,vikram.patel@apex.edu,+1 (555) 789-0123,karan.malhotra@student.apex.edu
+2024-AI-005,Sneha Kulkarni,Artificial Intelligence & ML,Engineering Mathematics III,29,35,Dr. Rajesh Kumar,rajesh.kumar@apex.edu,+1 (555) 890-1234,sneha.kulkarni@student.apex.edu
+2024-AI-018,Devansh Chawla,Artificial Intelligence & ML,Engineering Mathematics III,19,30,Dr. Rajesh Kumar,rajesh.kumar@apex.edu,+1 (555) 901-2345,devansh.chawla@student.apex.edu
+2024-IT-031,Divya Reddy,Information Technology,Database Management Systems,30,36,Prof. Meera Nair,meera.nair@apex.edu,+1 (555) 012-3456,divya.reddy@student.apex.edu
+2024-CS-055,Manish Gupta,Computer Science,Operating Systems,36,38,Prof. Sarah Jenkins,sarah.jenkins@apex.edu,+1 (555) 123-9876,manish.gupta@student.apex.edu
