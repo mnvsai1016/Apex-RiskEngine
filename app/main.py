@@ -106,9 +106,9 @@ async def serve_dashboard(request: Request):
     profiles = build_student_risk_profiles(current_students)
     weekly_report = generate_weekly_summary_report(profiles)
     return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
+        request=request,
+        name="index.html",
+        context={
             "profiles": profiles,
             "timetables": timetable_store.get_all_timetables(),
             "email_logs": notification_store.get_logs(),
