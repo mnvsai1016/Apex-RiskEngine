@@ -8,6 +8,11 @@
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8.svg)](https://tailwindcss.com)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+[![Live Hosted Demo](https://img.shields.io/badge/Live%20Hosted%20Demo-Online-emerald?style=for-the-badge&logo=cloudflare)](https://possibilities-anymore-plugin-throughout.trycloudflare.com)
+
+> 🔗 **Live Hosted System for Judges:** [https://possibilities-anymore-plugin-throughout.trycloudflare.com](https://possibilities-anymore-plugin-throughout.trycloudflare.com)  
+> *(Fully functional live URL with real-time file upload, recovery calculations, interactive phone dialer, email preview, and appointment booking)*
+
 ---
 
 ## 🌟 Overview & Problem Statement

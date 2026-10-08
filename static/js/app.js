@@ -11,8 +11,8 @@ let currentCallTimer = null;
 function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('border-blue-500', 'text-blue-400', 'bg-slate-800/40');
-        btn.classList.add('border-transparent', 'text-slate-400');
+        btn.classList.remove('bg-blue-50', 'text-blue-700', 'border', 'border-blue-200');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-50');
     });
 
     const targetTab = document.getElementById(tabId);
@@ -20,8 +20,8 @@ function switchTab(tabId) {
 
     const activeBtn = document.getElementById(`btn-${tabId}`);
     if (activeBtn) {
-        activeBtn.classList.remove('border-transparent', 'text-slate-400');
-        activeBtn.classList.add('border-blue-500', 'text-blue-400', 'bg-slate-800/40');
+        activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-50');
+        activeBtn.classList.add('bg-blue-50', 'text-blue-700', 'border', 'border-blue-200');
     }
 }
 
