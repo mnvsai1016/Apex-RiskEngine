@@ -8,9 +8,9 @@
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8.svg)](https://tailwindcss.com)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[![Live Hosted Demo](https://img.shields.io/badge/Live%20Hosted%20Demo-Online-emerald?style=for-the-badge&logo=cloudflare)](https://telling-traveler-msgstr-pocket.trycloudflare.com)
+[![Live Hosted Demo](https://img.shields.io/badge/Live%20Hosted%20Demo-Online-emerald?style=for-the-badge&logo=cloudflare)](https://answered-oscar-progressive-beats.trycloudflare.com)
 
-> 🔗 **Live Hosted System for Judges:** [https://telling-traveler-msgstr-pocket.trycloudflare.com](https://telling-traveler-msgstr-pocket.trycloudflare.com)  
+> 🔗 **Live Hosted System for Judges:** [https://answered-oscar-progressive-beats.trycloudflare.com](https://answered-oscar-progressive-beats.trycloudflare.com)  
 > *(Fully functional live URL with real-time file upload, recovery calculations, interactive phone dialer, email preview, and appointment booking)*
 
 ---

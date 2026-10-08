@@ -46,7 +46,7 @@ def dispatch_email_transport(
 
             server = smtplib.SMTP(smtp_host, smtp_port, timeout=10)
             server.starttls()
-            server.login(smtp_user, smtp_pass)
+            server.login(smtp_user, smtp_pass.replace(" ", "") if smtp_pass else "")
             server.sendmail(smtp_from, [recipient_email], msg.as_string())
             server.quit()
             status = "DELIVERED (REAL SMTP)"
