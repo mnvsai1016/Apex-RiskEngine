@@ -184,26 +184,28 @@ DEFAULT_STUDENTS: List[StudentRecord] = [
 def export_sample_files(target_dir: str):
     """
     Exports clean sample CSV files so hackathon judges can download and inspect them,
-    or re-upload them to test the ingestion pipeline.
+    or re-upload them to test the ingestion pipeline. Safe in read-only environments.
     """
-    os.makedirs(target_dir, exist_ok=True)
-    
-    # 1. Combined Master File
-    df_combined = pd.DataFrame([s.model_dump() for s in DEFAULT_STUDENTS])
     combined_path = os.path.join(target_dir, "combined_student_data.csv")
-    df_combined.to_csv(combined_path, index=False)
-
-    # 2. Pure Attendance Sheet
-    attendance_cols = ["roll_number", "name", "department", "subject", "classes_attended", "total_classes", "advisor_name", "advisor_email", "phone", "email"]
-    df_attendance = df_combined[attendance_cols]
     attendance_path = os.path.join(target_dir, "attendance_sample.csv")
-    df_attendance.to_csv(attendance_path, index=False)
-
-    # 3. Pure Test Results Sheet
-    test_cols = ["roll_number", "name", "subject", "test1_marks", "test2_marks", "assignment_marks"]
-    df_tests = df_combined[test_cols]
     tests_path = os.path.join(target_dir, "test_results_sample.csv")
-    df_tests.to_csv(tests_path, index=False)
+    try:
+        os.makedirs(target_dir, exist_ok=True)
+        # 1. Combined Master File
+        df_combined = pd.DataFrame([s.model_dump() for s in DEFAULT_STUDENTS])
+        df_combined.to_csv(combined_path, index=False)
+
+        # 2. Pure Attendance Sheet
+        attendance_cols = ["roll_number", "name", "department", "subject", "classes_attended", "total_classes", "advisor_name", "advisor_email", "phone", "email"]
+        df_attendance = df_combined[attendance_cols]
+        df_attendance.to_csv(attendance_path, index=False)
+
+        # 3. Pure Test Results Sheet
+        test_cols = ["roll_number", "name", "subject", "test1_marks", "test2_marks", "assignment_marks"]
+        df_tests = df_combined[test_cols]
+        df_tests.to_csv(tests_path, index=False)
+    except Exception:
+        pass
 
     return {
         "combined": combined_path,

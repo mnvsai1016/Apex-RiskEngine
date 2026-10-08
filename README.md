@@ -1,19 +1,16 @@
-# 🎓 Apex RiskEngine: AI-Powered Student Risk Management & Intervention Suite
+# 🎓 Attendence Automation: AI-Powered Student Risk Management & Intervention Suite
 
 > **Hackathon Solution for Education Problem Statement**  
 > An automated, real-time student attendance monitoring, early warning, mathematical recovery forecasting, and multi-channel intervention system.
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](https://fastapi.tiangolo.com)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8.svg)](https://tailwindcss.com)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/mnvsai1016/Attendence-Automation)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mnvsai1016/Attendence-Automation)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[![Live Hosted Demo](https://img.shields.io/badge/Live%20Hosted%20Demo-Online-emerald?style=for-the-badge&logo=cloudflare)](https://classifieds-alternatively-muscle-sep.trycloudflare.com)
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mnvsai1016/Apex-RiskEngine)
-
-> 🔗 **Live Hosted System for Judges:** [https://classifieds-alternatively-muscle-sep.trycloudflare.com](https://classifieds-alternatively-muscle-sep.trycloudflare.com)  
-> 🚀 **1-Click Permanent Cloud Deploy:** Click the **Deploy to Render** button above to host 24/7 on Render.com with zero configuration!  
-> *(Fully functional live URL with real-time file upload, recovery calculations, interactive phone dialer, email preview, and appointment booking)*
+> 🚀 **1-Click Cloud Deployment:** Click the **Deploy with Vercel** button above to host 24/7 on Vercel with zero configuration!  
+> 🔗 **Repository:** [https://github.com/mnvsai1016/Attendence-Automation](https://github.com/mnvsai1016/Attendence-Automation)
 
 ---
 
