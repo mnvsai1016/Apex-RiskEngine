@@ -417,3 +417,55 @@ async function deleteTeacher(teacherId) {
         showToast("Error", "Request failed", true);
     }
 }
+
+async function sendFacultyTestAlert(teacherId, teacherName) {
+    try {
+        showToast("Sending Alert", `Generating faculty risk escalation email for ${teacherName}...`);
+        const resp = await fetch(`/api/teachers/${teacherId}/test-email`, { method: 'POST' });
+        const data = await resp.json();
+        if (resp.ok && data.success) {
+            showToast("Faculty Email Dispatched", `${data.message} [Status: ${data.status}]`);
+            setTimeout(() => {
+                switchTab('tab-notifications');
+                if (data.log && data.log.id) {
+                    previewEmailLog(data.log.id);
+                }
+            }, 1000);
+        } else {
+            showToast("Failed to Send", data.detail || "Error dispatching email", true);
+        }
+    } catch (err) {
+        showToast("Server Error", "Could not complete email dispatch", true);
+    }
+}
+
+async function sendCustomTestEmail() {
+    const input = document.getElementById('custom-test-email');
+    const email = input.value.trim();
+    if (!email) {
+        showToast("Email Required", "Please enter a valid recipient email address.", true);
+        return;
+    }
+
+    try {
+        showToast("Sending Test Alert", `Dispatching sample risk briefing to ${email}...`);
+        const resp = await fetch('/api/notifications/test-custom', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, name: "Faculty / Advisor" })
+        });
+        const data = await resp.json();
+        if (resp.ok && data.success) {
+            showToast("Test Email Dispatched!", `Delivered to ${email} [${data.status}]`);
+            input.value = '';
+            if (data.log && data.log.id) {
+                previewEmailLog(data.log.id);
+            }
+        } else {
+            showToast("Error", data.detail || "Could not dispatch test email", true);
+        }
+    } catch (err) {
+        showToast("Server Error", "Email request failed", true);
+    }
+}
+

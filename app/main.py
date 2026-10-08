@@ -5,7 +5,7 @@ High-Performance Student Risk Management & Automated Intervention Suite.
 import os
 import io
 import math
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import pandas as pd
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
@@ -226,6 +226,60 @@ async def send_student_warning(student_id: str):
     
     log = notification_store.send_student_warning_email(target, simulated=True)
     return {"success": True, "log": log.model_dump()}
+
+@app.post("/api/teachers/{teacher_id}/test-email")
+async def send_teacher_test_email(teacher_id: str):
+    teacher = timetable_store.get_teacher_by_id(teacher_id)
+    if not teacher:
+        raise HTTPException(status_code=404, detail="Teacher not found.")
+
+    profiles = build_student_risk_profiles(current_students)
+    matching = [
+        p for p in profiles 
+        if p.metrics.risk_level != "SAFE" and (
+            p.student.advisor_name.lower() in teacher.teacher_name.lower() or
+            p.student.subject.lower() in teacher.subject.lower() or
+            p.student.department.lower() in teacher.department.lower()
+        )
+    ]
+    if not matching:
+        matching = [p for p in profiles if p.metrics.risk_level != "SAFE"][:3]
+
+    log = notification_store.send_faculty_advisor_alert(
+        advisor_name=teacher.teacher_name,
+        advisor_email=teacher.email,
+        advisee_profiles=matching,
+        custom_subject=f"FACULTY RISK ALERT: {len(matching)} Students At-Risk in {teacher.subject}"
+    )
+    return {
+        "success": True,
+        "message": f"Alert email dispatched to {teacher.teacher_name} ({teacher.email})",
+        "log": log.model_dump(),
+        "status": log.status
+    }
+
+@app.post("/api/notifications/test-custom")
+async def send_custom_test_email(payload: Dict[str, str]):
+    recipient_email = payload.get("email")
+    recipient_name = payload.get("name", "Faculty Member")
+    if not recipient_email:
+        raise HTTPException(status_code=400, detail="Email is required.")
+        
+    profiles = build_student_risk_profiles(current_students)
+    at_risk = [p for p in profiles if p.metrics.risk_level != "SAFE"][:4]
+    
+    log = notification_store.send_faculty_advisor_alert(
+        advisor_name=recipient_name,
+        advisor_email=recipient_email,
+        advisee_profiles=at_risk,
+        custom_subject=f"Apex Early Warning Test Dispatch: {len(at_risk)} Flagged Students"
+    )
+    return {
+        "success": True,
+        "message": f"Test alert email successfully sent to {recipient_email}.",
+        "log": log.model_dump(),
+        "status": log.status
+    }
 
 @app.post("/api/notifications/batch")
 async def send_batch_notifications():

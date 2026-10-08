@@ -141,13 +141,30 @@ def run_all_tests():
     assert r_add_slot.status_code == 200
     print(f"[PASS] POST /api/teachers/{new_tch_id}/slots: Slot added ({r_add_slot.json()['slot']['slot_id']})")
 
-    # 17. Delete Teacher
+    # 17. Send Faculty Alert Email to Newly Added Teacher
+    r_tch_email = client.post(f"/api/teachers/{new_tch_id}/test-email")
+    assert r_tch_email.status_code == 200
+    assert r_tch_email.json()["success"] is True
+    assert r_tch_email.json()["log"]["recipient_email"] == "alan.turing@apex.edu"
+    print(f"[PASS] POST /api/teachers/{new_tch_id}/test-email: Dispatched alert to {r_tch_email.json()['log']['recipient_email']} [{r_tch_email.json()['status']}]")
+
+    # 18. Send Custom Email to Any Address
+    r_custom_email = client.post("/api/notifications/test-custom", json={
+        "email": "venkatasaimeka2006@gmail.com",
+        "name": "Prof. Test Recipient"
+    })
+    assert r_custom_email.status_code == 200
+    assert r_custom_email.json()["success"] is True
+    assert r_custom_email.json()["log"]["recipient_email"] == "venkatasaimeka2006@gmail.com"
+    print(f"[PASS] POST /api/notifications/test-custom: Dispatched test to venkatasaimeka2006@gmail.com [{r_custom_email.json()['status']}]")
+
+    # 19. Delete Teacher
     r_del_tch = client.delete(f"/api/teachers/{new_tch_id}")
     assert r_del_tch.status_code == 200
     print(f"[PASS] DELETE /api/teachers/{new_tch_id}: Teacher deleted successfully")
 
     print("\n" + "="*70)
-    print("SUCCESS: ALL 17 TEST CASES & ENDPOINTS PASSED WITH 100% ACCURACY!")
+    print("SUCCESS: ALL 19 TEST CASES & ENDPOINTS PASSED WITH 100% ACCURACY!")
     print("="*70)
 
 if __name__ == "__main__":
