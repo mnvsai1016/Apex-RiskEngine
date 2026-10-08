@@ -10,6 +10,9 @@ from email.mime.text import MIMEText
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 import uuid
+from dotenv import load_dotenv
+
+load_dotenv()
 from app.models import StudentRiskProfile, EmailLog
 
 def dispatch_email_transport(
